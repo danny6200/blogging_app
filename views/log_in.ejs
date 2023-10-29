@@ -1,0 +1,30 @@
+<%- include("partials/header"); %>
+
+<% if (message) { %>
+    <p>
+        <%= message %>
+    </p>
+<% } %>
+
+<h1>Log In</h1>
+
+<form action="/auth/log_in" method="post">
+    <div>
+        <label for="e-mail">Email:</label>
+        <input type="email" name="email" id="">
+    </div>
+
+    <div>
+        <label for="password">Password:</label>
+        <input type="password" name="password" id="">
+    </div>
+
+    <div>
+        <input type="submit" value="Log In">
+    </div>
+</form>
+
+<a href="/">Go Home</a>
+<a href="/">Forget Password?</a>
+
+<%- include("partials/footer"); %>

@@ -1,0 +1,25 @@
+<%- include("partials/header"); %>
+
+<% if (message) { %>
+    <p>
+        <%= message %>
+    </p>
+<% } %>
+
+
+<% if (user) { %>
+    <h1>Hi <%= user.first_name + " " + user.last_name %>,</h1>
+    <p>Create Blogs that will inspire your readers</p>
+
+    <div style=" display: flex; width: 60%; justify-content: space-evenly; gap: 5rem;">
+        <a href="/blogs/create">Create Blogs</a>
+        <a href="/blogs">Get Your Blogs</a>
+        <a href="/blogs?state=draft">Draft</a>
+        <a href="/blogs?state=published">Published</a>
+        <!-- <a href="/tasks/:id">Edit Task</a>
+        <a href="/tasks/:id">Delete Task</a> -->
+    </div>
+    <a href="/auth/log_out">Log out</a>
+<% } %>
+
+<%- include("partials/footer"); %>
