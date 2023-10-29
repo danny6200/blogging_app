@@ -1,6 +1,7 @@
 const BlogModel = require("../db/models/blogs.Model");
 const Mongoose = require("mongoose");
-const {readingTime} = require("../utils/helper")
+const {readingTime} = require("../utils/helper");
+const UserModel = require("../db/models/users.Model");
 
 
 const GetAllBlogs = async (req, res) => {
@@ -50,7 +51,9 @@ const GetOneBlog = async (req, res) => {
             return res.status(404).render("404")
         }
 
-        return res.status(200).render("viewSingle", {blog: blog, user: user})
+        const author = await UserModel.findById(blog.author)
+        blog.read_count += 1;
+        return res.status(200).render("viewSingle", {blog: blog, user: user, author: author})
 
     } catch (error) {
        return res.status(500).send({
