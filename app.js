@@ -24,6 +24,7 @@ app.use("/auth", authRouter);
 app.use("/blogs", blogRouter);
 
 app.get("/", controller.GetAllBlogs)
+app.get("/:id", controller.GetOneBlog)
 
 app.get("*", (req, res) => {
     return res.render("404")

@@ -20,17 +20,19 @@ const GetAllBlogs = async (req, res) => {
         start = (page - 1) * limit;
         end = page * limit
         
-        // if (req.query && req.query.state){
-        //     blogs_duplicate = blogs_duplicate.filter((blog) => blog.state.includes(req.query.state))
+        if (query.search){
+            blogs_duplicate = blogs_duplicate.filter((blog) => blog.author.includes(query.search) || 
+                                                                blog.title.includes(query.search) || 
+                                                                blog.tags.includes(query.search))
 
-        // }
+        }
 
 
         if (limit){
-            blogs_duplicate = blogs_duplicate.slice(0, limit)
+            blogs_duplicate = blogs_duplicate.slice(start, end)
         }
 
-        return res.status(200).render("viewBlogs", {blogs: blogs_duplicate})
+        return res.status(200).render("generalView", {blogs: blogs_duplicate})
 
     } catch (error) {
         return res.status(500).send({
@@ -39,23 +41,53 @@ const GetAllBlogs = async (req, res) => {
     }
 }
 
+const GetOneBlog = async (req, res) => {
+    try {
+        const user = res.locals.user || ""
+        const blog = await BlogModel.findById(req.params.id)
+
+        if(!blog) {
+            return res.status(404).render("404")
+        }
+
+        return res.status(200).render("viewSingle", {blog: blog, user: user})
+
+    } catch (error) {
+       return res.status(500).send({
+        error: error.message
+       }) 
+    }
+}
+
 const GetUserBlogs = async (req, res) => {
     try {
+        var query;
+        
+        if (req.query){
+            query = req.query;
+        }
+
         const user = res.locals.user;
         const blogs = await BlogModel.find({author: user._id})
         let blogs_duplicate = blogs
         
-        if (req.query && req.query.state){
-            blogs_duplicate = blogs_duplicate.filter((blog) => blog.state.includes(req.query.state))
+        limit = query.limit || 10
+        page = query.page || 1
+
+        start = (page - 1) * limit;
+        end = page * limit
+        
+        if (query.state){
+            blogs_duplicate = blogs_duplicate.filter((blog) => blog.state.includes(query.state))
 
         }
 
 
-        if (req.query && req.query.limit){
-            blogs_duplicate = blogs_duplicate.slice(0, req.query.limit)
+        if (limit){
+            blogs_duplicate = blogs_duplicate.slice(start, end)
         }
 
-        return res.status(200).render("viewBlogs", {blogs: blogs_duplicate})
+        return res.status(200).render("viewBlog", {blogs: blogs_duplicate, user: user})
 
     } catch (error) {
         return res.status(500).send({
@@ -137,6 +169,7 @@ const DeleteBlog = async (req, res) => {
 module.exports = {
     GetAllBlogs,
     GetUserBlogs,
+    GetOneBlog,
     CreateBlog,
     EditBlog,
     UpdateBlog,
