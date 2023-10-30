@@ -44,7 +44,7 @@ const GetAllBlogs = async (req, res) => {
 
 const GetOneBlog = async (req, res) => {
     try {
-        const user = res.locals.user || ""
+        user = res.locals.user
         const blog = await BlogModel.findById(req.params.id)
 
         if(!blog) {
@@ -52,7 +52,10 @@ const GetOneBlog = async (req, res) => {
         }
 
         const author = await UserModel.findById(blog.author)
-        blog.read_count += 1;
+        var read_count = blog.read_count
+        read_count += 1;
+        blog.read_count = read_count
+
         return res.status(200).render("viewSingle", {blog: blog, user: user, author: author})
 
     } catch (error) {
@@ -86,10 +89,10 @@ const GetUserBlogs = async (req, res) => {
         }
 
 
-        if (limit){
-            blogs_duplicate = blogs_duplicate.slice(start, end)
-        }
-
+        // if (limit){
+        //     blogs_duplicate = blogs_duplicate.slice(start, end)
+        // }
+        // console.log(blogs_duplicate)
         return res.status(200).render("viewBlog", {blogs: blogs_duplicate, user: user})
 
     } catch (error) {
@@ -106,6 +109,8 @@ const CreateBlog = async (req, res) => {
         const user = res.locals.user;
         const blog = req.body;
         const time = readingTime(blog.body)
+        const r_time = `${time} min`
+        // console.log({ time })
 
         await BlogModel.create({
             title: blog.title,
@@ -113,7 +118,7 @@ const CreateBlog = async (req, res) => {
             author: user._id,
             body: blog.body,
             tags: blog.tags,
-            reading_time: time
+            reading_time: r_time
         })
         return res.status(201).redirect("/blogs")
 

@@ -3,7 +3,7 @@
 
 <h1>Blogs</h1>
 <div style="display: flex; justify-content: space-around; gap: 2rem;">
-    <a href="/blogs">Create Blog</a>
+    <a href="/blogs/create">Create Blog</a>
     <a href="/blogs?state=draft">Draft</a>
     <a href="/blogs?state=published">Published</a>
     <a href="/auth/log_out">Log Out</a>
@@ -25,13 +25,8 @@
             <a href="/<%= blog._id %>">View Blog</a>
         </div>
     <% }) %>
-
-    <a href="/blogs/<%= blog._id %>/edit">Edit</a>
-    <form action="/blogs/<%= blog._id %>?_method=DELETE" method="POST">
-        <input type="submit" value="Delete">
-    </form>
    
 <% } %>
 
-
+<a href="/">Go Home</a>
 <%- include("partials/footer"); %>

@@ -5,6 +5,7 @@ const db = require("./db")
 const authRouter = require("./routes/auth.Route")
 const blogRouter = require("./routes/blogs.Route");
 const controller = require("./controllers/blogs.Controller")
+const authmiddleware = require("./middlewares/auth.Middleware")
 require("dotenv").config()
 
 
@@ -24,7 +25,7 @@ app.use("/auth", authRouter);
 app.use("/blogs", blogRouter);
 
 app.get("/", controller.GetAllBlogs)
-app.get("/:id", controller.GetOneBlog)
+app.get("/:id", authmiddleware.bearerTokenAuth, controller.GetOneBlog)
 
 app.get("*", (req, res) => {
     return res.render("404")

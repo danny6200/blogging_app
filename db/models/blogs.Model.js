@@ -10,7 +10,7 @@ const blogSchema = new Schema({
   author: {type: ObjectId, ref: 'User'},
   state: {type: String, enum: ['draft', 'published'], default: 'draft'},
   read_count: {type: Number, default: 0},
-  reading_time: {type: Number},
+  reading_time: {type: String},
   tags: {type: [String], default: ['Technology', 'Lifestyle', 'Inspiration']},
   body: {type: String, required: true},
   timestamp: {type: Date, default: Date.now()}

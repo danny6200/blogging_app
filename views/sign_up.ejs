@@ -6,31 +6,33 @@
     </p>
 <% } %>
 
-<h1>Register</h1>
+<div style="width: 300px; margin: 0 auto;">
+    <h1>Register</h1>
+    <form action="/auth/sign_up" method="post">
+        <div>
+            <label for="first_name">First Name:</label>
+            <input type="text" name="first_name" id="" required>
+        </div>
+    
+        <div>
+            <label for="last_name">Last Name:</label>
+            <input type="text" name="last_name" id="" required>
+        </div>
+    
+        <div>
+            <label for="email">Email:</label>
+            <input type="email" name="email" id="" required>
+        </div>
+    
+        <div>
+            <label for="password">Password:</label>
+            <input type="password" name="password" id="" required>
+        </div>
+    
+        <input type="submit" value="Sign Up">
+    </form>
+</div>
 
-<form action="/auth/sign_up" method="post">
-    <div>
-        <label for="first_name">First Name:</label>
-        <input type="text" name="first_name" id="" required>
-    </div>
-
-    <div>
-        <label for="last_name">Last Name:</label>
-        <input type="text" name="last_name" id="" required>
-    </div>
-
-    <div>
-        <label for="email">Email:</label>
-        <input type="email" name="email" id="" required>
-    </div>
-
-    <div>
-        <label for="password">Password:</label>
-        <input type="password" name="password" id="" required>
-    </div>
-
-    <input type="submit" value="Sign Up">
-</form>
 
 <a href="/">Go Home</a>
 <a href="/auth/log_in">Log In</a>

@@ -5,7 +5,7 @@ const ValidateBlogCreation = async (req, res, next) => {
         const schema = Joi.object({
             title: Joi.string().required(),
             description: Joi.string().optional().allow(""),
-            tags: Joi.array().items(Joi.string()).optional().allow(""),
+            tags: Joi.string().optional().allow(""),
             body: Joi.string().required()
         })
     

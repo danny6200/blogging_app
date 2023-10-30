@@ -1,35 +1,37 @@
 <%- include("partials/header"); %>
 
 
-<h1>Create Blog</h1>
-
-<form action="/blogs" method="POST">
-    <div>
-        <label for="title">Title:</label>
-        <input type="text" name="title" id="" required>
-    </div>
-
-    <div>
-        <label for="description">Description:</label>
-        <input type="text" name="description" id="">
-    </div>
-
+<div style="width: 300px; margin: 0 auto;">
+    <h1>Create Blog</h1>
+    <form action="/blogs" method="POST">
+        <div>
+            <label for="title">Title:</label>
+            <input type="text" name="title" id="" required>
+        </div>
     
-    <div>
-        <label for="body">Body:</label>
-        <input type="text" name="body" id="" required>
-    </div>
-
+        <div>
+            <label for="description">Description:</label>
+            <input type="text" name="description" id="">
+        </div>
     
-    <div>
-        <label for="tags">Tags:</label>
-        <input type="text" name="tags" id="">
-    </div>
+        
+        <div>
+            <label for="body">Body:</label>
+            <textarea name="body" id="" cols="30" rows="10"></textarea>
+        </div>
+    
+        
+        <div>
+            <label for="tags">Tags:</label>
+            <input type="text" name="tags" id="">
+        </div>
+    
+        <input type="submit" value="Create Blog">
+    </form>
 
-    <input type="submit" value="Create Blog">
-</form>
+    <a href="/">Go Home</a>
+    <a href="/auth/log_out">Log Out</a>
+</div>
 
-<a href="/blogs">Go Home</a>
-<a href="/auth/log_out">Log Out</a>
 
 <%- include("partials/footer"); %>
